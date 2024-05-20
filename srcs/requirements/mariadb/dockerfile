@@ -1,0 +1,12 @@
+FROM debian:bullseye
+
+WORKDIR /app
+
+EXPOSE 3306
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    mariadb-server
+
+COPY tools/creating_db.sh .
+
+ENTRYPOINT ["bash", "creating_db.sh"]

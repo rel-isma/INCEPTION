@@ -1,0 +1,28 @@
+# Dockerfile for Nginx
+FROM debian:bullseye
+
+# Install Nginx and OpenSSL
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    nginx \
+    openssl
+
+# Create directories for the SSL certificates
+RUN mkdir -p /etc/nginx/certs
+
+# Generate self-signed SSL certificate
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/certs/selfsigned.key \
+    -out /etc/nginx/certs/selfsigned.crt \
+    -subj "/C=MA/ST=Morocco/L=khouribga/O=1337 future is loading/CN=rel-isma.42.fr"
+
+# Remove default server configuration
+RUN rm /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Copy the custom Nginx configuration
+COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose HTTPS port
+EXPOSE 443
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
