@@ -1,5 +1,9 @@
 FROM debian:bullseye
 
+# Add metadata to the image for description and maintainer
+LABEL description="WordPress Docker image"
+LABEL maintainer="rachid el-ismaiyly <relismaiyly@gmail.com>"
+
 WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install --no-install-recommends -y \

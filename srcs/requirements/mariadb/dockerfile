@@ -1,12 +1,22 @@
+# Use the Debian bullseye base image
 FROM debian:bullseye
 
+# Add metadata to the image for description and maintainer
+LABEL description="MariaDB Docker image"
+LABEL maintainer="rachid el-ismaiyly <relismaiyly@gmail.com>"
+
+# Set the working directory inside the container to /app
 WORKDIR /app
 
+# Expose port 3306 to allow external access to the MariaDB server
 EXPOSE 3306
 
+# Update the package list and install MariaDB server without recommended packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
     mariadb-server
 
+# Copy the database initialization script into the container's /app directory
 COPY tools/creating_db.sh .
 
+# Set the entrypoint to run the database initialization script
 ENTRYPOINT ["bash", "creating_db.sh"]

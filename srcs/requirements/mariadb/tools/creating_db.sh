@@ -3,9 +3,14 @@
 # Start MariaDB service
 service mariadb start
 
-until mysqladmin ping -hlocalhost --silent; do
+wait_for_mariadb() {
+  echo "Waiting for MariaDB to be ready..."
+  while ! mysqladmin ping -hlocalhost --silent; do
+    echo "MariaDB is unavailable - waiting..."
     sleep 3
-done
+  done
+  echo "MariaDB is up and running!"
+}
 
 # Allow external connections
 echo "bind-address = 0.0.0.0" >> /etc/mysql/mariadb.conf.d/50-server.cnf
