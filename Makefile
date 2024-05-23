@@ -1,11 +1,11 @@
 DOCKER_COMPOSE = docker-compose
 DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
-# DB_PATH = /home/rel-sima/data/db
-# WORDPRESS_PATH = /home/rel-sima/data/wordpress
+DB_PATH = /home/rel-sima/data/db
+WORDPRESS_PATH = /home/rel-sima/data/wordpress
 
-.PHONY: all build up down clean restart logs
+.PHONY: all build up down clean restart logs create-directories
 
-all: build up
+all: create-directories build up
 
 build:
 	@echo "Building Docker images..."
@@ -29,7 +29,7 @@ logs:
 	@echo "Showing Docker container logs..."
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) logs -f
 
-# create-directories:
-# 	@echo "Creating directories for Docker volumes..."
-# 	@mkdir -p $(DB_PATH)
-# 	@mkdir -p $(WORDPRESS_PATH)
+create-directories:
+	@echo "Creating directories for Docker volumes..."
+	@mkdir -p $(DB_PATH)
+	@mkdir -p $(WORDPRESS_PATH)

@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     container_name: mariadb
     volumes:
-      - db_data:/var/lib/mysql
+      - db:/var/lib/mysql
     networks:
       - wordpress-network
     restart: always
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     container_name: wp
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - wordpress-network
     restart: always
@@ -39,7 +39,7 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     ports:
       - "443:443"
     networks:
@@ -50,5 +50,15 @@ networks:
   wordpress-network:
 
 volumes:
-  db_data:
-  wordpress_data:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rel-sima/data/db
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rel-sima/data/wordpress
