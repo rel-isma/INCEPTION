@@ -51,14 +51,14 @@ networks:
 
 volumes:
   db:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/rel-sima/data/db
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/rel-sima/data/db
   wordpress:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/rel-sima/data/wordpress
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/rel-sima/data/wordpress
