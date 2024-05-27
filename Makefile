@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose
+DOCKER_COMPOSE = docker compose
 DOCKER_COMPOSE_FILE = srcs/docker-compose.yml
 DB_PATH = /home/rel-sima/data/db
 WORDPRESS_PATH = /home/rel-sima/data/wordpress

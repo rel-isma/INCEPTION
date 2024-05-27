@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   mariadb:
     env_file:
@@ -13,6 +11,7 @@ services:
     networks:
       - wordpress-network
     restart: always
+    image: mariadb
 
   wordpress:
     depends_on:
@@ -31,12 +30,11 @@ services:
 
   nginx:
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_started
     env_file:
       - .env
-    build:
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
+    build: ./requirements/nginx
     container_name: nginx
     volumes:
       - wordpress:/var/www/html
